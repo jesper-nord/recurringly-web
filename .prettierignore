@@ -1,0 +1,12 @@
+.idea
+.vscode
+build
+conf
+coverage
+crond
+node_modules
+public
+*.yml
+*.yaml
+Dockerfile
+package-lock.json
