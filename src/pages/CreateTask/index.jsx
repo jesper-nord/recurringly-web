@@ -1,4 +1,4 @@
-import { Form, redirect } from 'react-router-dom';
+import { Form, Outlet, redirect } from 'react-router-dom';
 import { createTask } from '../../http';
 
 export async function action({ request }) {
@@ -16,6 +16,9 @@ export const CreateTask = () => {
         <input placeholder="Name" aria-label="Name" type="text" name="name" />
       </p>
       <button type="submit">Create</button>
+      <div id="detail">
+        <Outlet />
+      </div>
     </Form>
   );
 };

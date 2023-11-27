@@ -12,7 +12,7 @@ export const Start = () => {
   if (tasks.length === 0) {
     return (
       <div>
-        No tasks found, <Link to="create">create one</Link>.
+        No tasks found, <Link to="/task">create one</Link>.
       </div>
     );
   }
@@ -20,9 +20,11 @@ export const Start = () => {
   return (
     <div>
       {tasks.map((task) => (
-        <div key={task.id}>{task.name}</div>
+        <div key={task.id}>
+          <Link to={`/task/${task.id}`}>{task.name}</Link>
+        </div>
       ))}
-      <Link to="create">Create new</Link>
+      <Link to="/task">Create new</Link>
     </div>
   );
 };
