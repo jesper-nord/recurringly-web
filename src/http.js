@@ -15,4 +15,9 @@ export const createTask = async (name) => {
   return response.data;
 };
 
+export const completeTask = async (id) => {
+  const response = await axios.put(`/api/tasks/${id}`);
+  return response.data;
+};
+
 export const deleteTask = (id) => axios.delete(`/api/tasks/${id}`);

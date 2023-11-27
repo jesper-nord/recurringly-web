@@ -23,6 +23,9 @@ export const Task = () => {
           ))}
         </ol>
       )}
+      <Form method="post" action="complete">
+        <button type="submit">Complete task</button>
+      </Form>
       <Form
         method="post"
         action="destroy"
