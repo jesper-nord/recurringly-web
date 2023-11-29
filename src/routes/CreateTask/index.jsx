@@ -11,11 +11,24 @@ export async function action({ request }) {
 export const CreateTask = () => {
   return (
     <Form method="post">
-      <p>
-        <span>Task name</span>
-        <input placeholder="Name" aria-label="Name" type="text" name="name" />
-      </p>
-      <button type="submit">Create</button>
+      <div className="">
+        <div className="text-xl font-medium text-black dark:text-white mb-6">
+          New task
+        </div>
+        <input
+          placeholder="Task name"
+          aria-label="Task name"
+          type="text"
+          name="name"
+          className="p-2 rounded-md"
+        />
+        <button
+          type="submit"
+          className="ml-4 bg-gray-600 rounded-md p-2 text-gray-200"
+        >
+          Create
+        </button>
+      </div>
       <div id="detail">
         <Outlet />
       </div>
