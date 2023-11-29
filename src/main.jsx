@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ErrorPage } from './error-page';
 import { Root } from './routes/Root';
 import { Start, loader as tasksLoader } from './routes/Start';
 import { CreateTask, action as createAction } from './routes/CreateTask';
@@ -14,33 +15,39 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <Start />,
-        loader: tasksLoader,
-      },
-      {
-        path: '/task',
-        element: <CreateTask />,
-        action: createAction,
-      },
-      {
-        path: '/task/:taskId',
-        element: <Task />,
-        loader: taskLoader,
+        errorElement: <ErrorPage />,
         children: [
           {
-            path: '/task/:taskId/complete',
-            action: completeAction,
+            index: true,
+            element: <Start />,
+            loader: tasksLoader,
           },
           {
-            path: '/task/:taskId/destroy',
-            action: deleteTaskAction,
+            path: '/task',
+            element: <CreateTask />,
+            action: createAction,
           },
           {
-            path: '/task/:taskId/history/:taskHistoryId/destroy',
-            action: deleteHistoryAction,
+            path: '/task/:taskId',
+            element: <Task />,
+            loader: taskLoader,
+            children: [
+              {
+                path: '/task/:taskId/complete',
+                action: completeAction,
+              },
+              {
+                path: '/task/:taskId/destroy',
+                action: deleteTaskAction,
+              },
+              {
+                path: '/task/:taskId/history/:taskHistoryId/destroy',
+                action: deleteHistoryAction,
+              },
+            ],
           },
         ],
       },
