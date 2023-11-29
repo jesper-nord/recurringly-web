@@ -22,6 +22,12 @@ export const Start = () => {
       {tasks.map((task) => (
         <div key={task.id}>
           <Link to={`/task/${task.id}`}>{task.name}</Link>
+          {task.history.length > 0 && (
+            <div>
+              {' - '}
+              {task.history[0].completed_at}
+            </div>
+          )}
         </div>
       ))}
       <Link to="/task">Create new</Link>

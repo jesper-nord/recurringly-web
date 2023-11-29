@@ -21,3 +21,6 @@ export const completeTask = async (id) => {
 };
 
 export const deleteTask = (id) => axios.delete(`/api/tasks/${id}`);
+
+export const deleteTaskHistory = (id) =>
+  axios.delete(`/api/tasks/history/${id}`);

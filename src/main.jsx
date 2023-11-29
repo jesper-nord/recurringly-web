@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Start, loader as rootLoader } from './pages/Start';
 import { CreateTask, action as createAction } from './pages/CreateTask';
 import { action as completeAction } from './pages/CompleteTask';
-import { action as deleteAction } from './pages/DeleteTask';
+import { action as deleteTaskAction } from './pages/DeleteTask';
+import { action as deleteHistoryAction } from './pages/DeleteTaskHistory';
 import { Task, loader as taskLoader } from './pages/Task';
 
 const router = createBrowserRouter([
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/task/:taskId/destroy',
-        action: deleteAction,
+        action: deleteTaskAction,
+      },
+      {
+        path: '/task/:taskId/history/:taskHistoryId/destroy',
+        action: deleteHistoryAction,
       },
     ],
   },
