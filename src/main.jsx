@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Start, loader as rootLoader } from './pages/Start';
-import { CreateTask, action as createAction } from './pages/CreateTask';
-import { action as completeAction } from './pages/CompleteTask';
-import { action as deleteTaskAction } from './pages/DeleteTask';
-import { action as deleteHistoryAction } from './pages/DeleteTaskHistory';
-import { Task, loader as taskLoader } from './pages/Task';
+import { Start, loader as rootLoader } from './routes/Start';
+import { CreateTask, action as createAction } from './routes/CreateTask';
+import { action as completeAction } from './routes/CompleteTask';
+import { action as deleteTaskAction } from './routes/DeleteTask';
+import { action as deleteHistoryAction } from './routes/DeleteTaskHistory';
+import { Task, loader as taskLoader } from './routes/Task';
 
 const router = createBrowserRouter([
   {
