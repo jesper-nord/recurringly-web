@@ -11,7 +11,7 @@ export const Task = () => {
   const { task } = useLoaderData();
 
   if (!task) {
-    return redirect('/');
+    return redirect('/tasks');
   }
 
   return (

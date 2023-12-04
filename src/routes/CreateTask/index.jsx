@@ -5,7 +5,7 @@ export async function action({ request }) {
   const formData = await request.formData();
   const { name } = Object.fromEntries(formData);
   await createTask(name);
-  return redirect('/');
+  return redirect('/tasks');
 }
 
 export const CreateTask = () => {

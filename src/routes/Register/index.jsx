@@ -1,42 +1,31 @@
-import { login, refresh } from '../../http';
+import { register } from '../../http';
 import {
   Form,
-  Link,
   isRouteErrorResponse,
   redirect,
   useRouteError,
 } from 'react-router-dom';
-import { clearTokens, getRefreshToken, saveTokens } from '../../util';
-
-export async function loader() {
-  const refresh_token = getRefreshToken();
-  if (refresh_token) {
-    try {
-      const { tokens } = await refresh(refresh_token);
-      saveTokens(tokens);
-      return redirect('/tasks');
-    } catch (e) {
-      console.warn('invalid session', e);
-      clearTokens();
-    }
-  }
-}
+import { saveTokens } from '../../util';
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const { email, password } = Object.fromEntries(formData);
+  const { email, password, repeatpassword } = Object.fromEntries(formData);
+
+  if (password !== repeatpassword) {
+    throw new Response('Passwords does not match', { status: 400 });
+  }
 
   try {
-    const { tokens } = await login(email, password);
+    const { tokens } = await register(email, password);
     saveTokens(tokens);
   } catch (e) {
-    throw new Response('invalid login', { status: e.response.status });
+    throw new Response('', { status: e.response.status });
   }
 
   return redirect('/tasks');
 }
 
-export const Start = () => {
+export const Register = () => {
   return (
     <div className="flex flex-col h-full place-content-center">
       <Form method="post" className="flex flex-col">
@@ -45,6 +34,7 @@ export const Start = () => {
           aria-label="Email"
           type="email"
           name="email"
+          required
           className="p-2 rounded-md mb-2"
         />
         <input
@@ -52,33 +42,40 @@ export const Start = () => {
           aria-label="Password"
           type="password"
           name="password"
+          autoComplete="new-password"
+          required
+          className="p-2 rounded-md mb-2"
+        />
+        <input
+          placeholder="Repeat password"
+          aria-label="Repeat password"
+          type="password"
+          name="repeatpassword"
+          required
           className="p-2 rounded-md mb-2"
         />
         <button
           type="submit"
           className="bg-gray-600 hover:bg-gray-500 rounded-md p-2 mt-4 text-gray-200 block"
         >
-          Login
+          Register
         </button>
       </Form>
-      <Link to="/register" className="text-gray-200 hover:text-gray-400 mt-4">
-        Register
-      </Link>
-      <LoginError />
+      <RegisterError />
     </div>
   );
 };
 
-export const LoginError = () => {
+const RegisterError = () => {
   const error = useRouteError();
   if (!error) {
     return null;
   }
 
-  if (isRouteErrorResponse(error) && error.status === 401) {
+  if (isRouteErrorResponse(error)) {
     return (
       <div className="text-red-800 dark:text-red-400 mt-4">
-        Invalid username/password
+        {error.status === 403 ? 'User already registered' : error.data}
       </div>
     );
   }

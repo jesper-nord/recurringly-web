@@ -4,12 +4,18 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ErrorPage } from './error-page';
 import { Root } from './routes/Root';
-import { Start, loader as tasksLoader } from './routes/Start';
+import {
+  Start,
+  action as loginAction,
+  loader as loginLoader,
+} from './routes/Start';
+import { Register, action as registerAction } from './routes/Register';
+import { Tasks, loader as tasksLoader } from './routes/Tasks';
+import { Task, loader as taskLoader } from './routes/Task';
 import { CreateTask, action as createAction } from './routes/CreateTask';
 import { action as completeAction } from './routes/CompleteTask';
 import { action as deleteTaskAction } from './routes/DeleteTask';
 import { action as deleteHistoryAction } from './routes/DeleteTaskHistory';
-import { Task, loader as taskLoader } from './routes/Task';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +29,19 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Start />,
+            loader: loginLoader,
+            action: loginAction,
+            errorElement: <Start />,
+          },
+          {
+            path: '/register',
+            element: <Register />,
+            action: registerAction,
+            errorElement: <Register />,
+          },
+          {
+            path: '/tasks',
+            element: <Tasks />,
             loader: tasksLoader,
           },
           {

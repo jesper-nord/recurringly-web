@@ -3,5 +3,5 @@ import { deleteTask } from '../../http';
 
 export async function action({ params }) {
   await deleteTask(params.taskId);
-  return redirect('/');
+  return redirect('/tasks');
 }
