@@ -3,8 +3,12 @@ import { fetchTask } from '../../http';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 
 export async function loader({ params }) {
-  const task = await fetchTask(params.taskId);
-  return { task };
+  try {
+    const task = await fetchTask(params.taskId);
+    return { task };
+  } catch {
+    return redirect('/');
+  }
 }
 
 export const Task = () => {

@@ -3,11 +3,15 @@ import { Link, redirect, useLoaderData } from 'react-router-dom';
 import { format } from 'date-fns';
 
 export async function loader() {
-  const tasks = await fetchTasks();
-  if (tasks.length === 0) {
-    return redirect('/task');
+  try {
+    const tasks = await fetchTasks();
+    if (tasks.length === 0) {
+      return redirect('/task');
+    }
+    return { tasks };
+  } catch {
+    return redirect('/');
   }
-  return { tasks };
 }
 
 export const Tasks = () => {

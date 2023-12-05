@@ -20,6 +20,7 @@ export async function loader() {
       clearTokens();
     }
   }
+  return null;
 }
 
 export async function action({ request }) {

@@ -82,5 +82,5 @@ export const completeTask = async (id) => {
 
 export const deleteTask = (id) => client.delete(`/auth/tasks/${id}`);
 
-export const deleteTaskHistory = (id) =>
-  client.delete(`/auth/tasks/history/${id}`);
+export const deleteTaskHistory = (taskId, historyId) =>
+  client.delete(`/auth/tasks/${taskId}/history/${historyId}`);
