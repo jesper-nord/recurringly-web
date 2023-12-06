@@ -23,12 +23,16 @@ client.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    const refresh_token = getRefreshToken();
+    if (!refresh_token) {
+      return Promise.reject(error);
+    }
+
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const refresh_token = getRefreshToken();
         const response = await refresh(refresh_token);
         const { tokens } = response.data;
         saveTokens(tokens);
@@ -56,8 +60,8 @@ export const register = async (email, password) => {
 };
 
 export const refresh = async (refresh_token) => {
-  const response = client.post('/auth/refresh', { refresh_token });
-  return (await response).data;
+  const response = await client.post('/refresh', { refresh_token });
+  return response.data;
 };
 
 export const fetchTasks = async () => {
