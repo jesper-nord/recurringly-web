@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { fetchTask } from '../../http';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 
@@ -20,8 +19,26 @@ export const Task = () => {
 
   return (
     <div>
-      <div className="text-xl font-medium text-black dark:text-white mb-6">
-        {task.name}: history
+      <div className="flex justify-between mb-6">
+        <div className="text-xl font-medium text-black dark:text-white">
+          {task.name}: history
+        </div>
+        <Form
+          method="post"
+          action="destroy"
+          onSubmit={(event) => {
+            if (!confirm(`Are you sure you want to delete '${task.name}'?`)) {
+              event.preventDefault();
+            }
+          }}
+        >
+          <button
+            type="submit"
+            className="p-2 rounded-md transition ease-in-out duration-150 bg-gray-600 hover:bg-gray-500 text-gray-200"
+          >
+            Delete task
+          </button>
+        </Form>
       </div>
       {task.history.length > 0 ? (
         <ol>
@@ -32,9 +49,10 @@ export const Task = () => {
             >
               <div className="flex flex-1 flex-col">
                 <div className="text-sm text-gray-800">
-                  {task.history.length > 0
-                    ? format(new Date(h.completed_at), 'Pp')
-                    : 'Never completed'}
+                  {new Intl.DateTimeFormat(navigator.language, {
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                  }).format(new Date(h.completed_at))}
                 </div>
               </div>
               <Form
@@ -43,7 +61,7 @@ export const Task = () => {
                 onSubmit={(event) => {
                   if (
                     !confirm(
-                      'Please confirm you want to delete this task history entry',
+                      'Are you sure you want to delete this history entry?',
                     )
                   ) {
                     event.preventDefault();
@@ -52,7 +70,7 @@ export const Task = () => {
               >
                 <button
                   type="submit"
-                  className="bg-gray-600 rounded-md p-2 text-gray-200"
+                  className="p-2 rounded-md transition ease-in-out duration-150 bg-gray-600 hover:bg-gray-500 text-gray-200"
                 >
                   Delete entry
                 </button>
@@ -68,25 +86,9 @@ export const Task = () => {
       <Form method="post" action="complete">
         <button
           type="submit"
-          className="bg-gray-600 rounded-md p-2 text-gray-200"
+          className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white mt-6"
         >
           Complete task
-        </button>
-      </Form>
-      <Form
-        method="post"
-        action="destroy"
-        onSubmit={(event) => {
-          if (!confirm('Please confirm you want to delete this task')) {
-            event.preventDefault();
-          }
-        }}
-      >
-        <button
-          type="submit"
-          className="bg-gray-600 rounded-md p-2 text-gray-200"
-        >
-          Delete task
         </button>
       </Form>
     </div>

@@ -1,6 +1,5 @@
 import { fetchTasks } from '../../http';
 import { Link, redirect, useLoaderData } from 'react-router-dom';
-import { format } from 'date-fns';
 
 export async function loader() {
   try {
@@ -33,7 +32,10 @@ export const Tasks = () => {
               <div className="text-lg text-slate-800">{task.name}</div>
               <div className="text-sm text-gray-500">
                 {task.history.length > 0
-                  ? format(new Date(task.history[0].completed_at), 'Pp')
+                  ? new Intl.DateTimeFormat(navigator.language, {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    }).format(new Date(task.history[0].completed_at))
                   : 'Never completed'}
               </div>
             </div>
@@ -41,7 +43,7 @@ export const Tasks = () => {
         </Link>
       ))}
       <Link to="/task" className="absolute bottom-6 right-6">
-        <button className="bg-gray-600 rounded-md p-2 text-gray-200">
+        <button className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white">
           New task
         </button>
       </Link>

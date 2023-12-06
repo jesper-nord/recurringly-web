@@ -56,7 +56,7 @@ export const Register = () => {
         />
         <button
           type="submit"
-          className="bg-gray-600 hover:bg-gray-500 rounded-md p-2 mt-4 text-gray-200 block"
+          className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white mt-4 block"
         >
           Register
         </button>

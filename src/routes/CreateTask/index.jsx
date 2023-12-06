@@ -20,11 +20,12 @@ export const CreateTask = () => {
           aria-label="Task name"
           type="text"
           name="name"
+          required
           className="p-2 rounded-md"
         />
         <button
           type="submit"
-          className="ml-4 bg-gray-600 rounded-md p-2 text-gray-200"
+          className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white ml-4"
         >
           Create
         </button>
