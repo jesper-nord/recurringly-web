@@ -21,7 +21,10 @@ export const Task = () => {
     <div>
       <div className="flex justify-between mb-6">
         <div className="text-xl font-medium text-black dark:text-white">
-          <Link to="/tasks" className="mr-4 hover:text-gray-200">
+          <Link
+            to="/tasks"
+            className="mr-4 hover:text-gray-500 dark:hover:text-gray-200"
+          >
             &larr;
           </Link>
           {task.name}: history

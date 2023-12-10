@@ -39,7 +39,10 @@ export const EditTaskHistory = () => {
     <div>
       <div className="flex justify-between mb-6">
         <div className="text-xl font-medium text-black dark:text-white">
-          <Link to={`/task/${task.id}`} className="mr-4 hover:text-gray-200">
+          <Link
+            to={`/task/${task.id}`}
+            className="mr-4 hover:text-gray-500 dark:hover:text-gray-200"
+          >
             &larr;
           </Link>
           Edit entry

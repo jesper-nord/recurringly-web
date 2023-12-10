@@ -1,4 +1,4 @@
-import { Form, Outlet, redirect } from 'react-router-dom';
+import { Form, Link, Outlet, redirect } from 'react-router-dom';
 import { createTask } from '../../http';
 
 export async function action({ request }) {
@@ -13,6 +13,12 @@ export const CreateTask = () => {
     <Form method="post">
       <div className="">
         <div className="text-xl font-medium text-black dark:text-white mb-6">
+          <Link
+            to="/tasks"
+            className="mr-4 hover:text-gray-500 dark:hover:text-gray-200"
+          >
+            &larr;
+          </Link>
           New task
         </div>
         <input
