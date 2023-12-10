@@ -93,3 +93,11 @@ export const deleteTask = (id) => client.delete(`/auth/tasks/${id}`);
 
 export const deleteTaskHistory = (taskId, historyId) =>
   client.delete(`/auth/tasks/${taskId}/history/${historyId}`);
+
+export const editTaskHistory = async (taskId, taskHistoryId, completed_at) => {
+  const response = await client.put(
+    `/auth/tasks/${taskId}/history/${taskHistoryId}`,
+    { completed_at },
+  );
+  return response.data;
+};

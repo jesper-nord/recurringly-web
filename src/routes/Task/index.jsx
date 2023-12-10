@@ -50,26 +50,11 @@ export const Task = () => {
                   }).format(new Date(h.completed_at))}
                 </div>
               </div>
-              <Form
-                method="post"
-                action={`history/${h.id}/destroy`}
-                onSubmit={(event) => {
-                  if (
-                    !confirm(
-                      'Are you sure you want to delete this history entry?',
-                    )
-                  ) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                <button
-                  type="submit"
-                  className="p-2 rounded-md transition ease-in-out duration-150 bg-gray-600 hover:bg-gray-500 text-gray-200"
-                >
-                  Delete entry
+              <Link to={`/task/${task.id}/history/${h.id}/edit`}>
+                <button className="p-2 rounded-md transition ease-in-out duration-150 bg-gray-600 hover:bg-gray-500 text-gray-200">
+                  Edit
                 </button>
-              </Form>
+              </Link>
             </li>
           ))}
         </ol>
@@ -81,7 +66,7 @@ export const Task = () => {
       <Form method="post" action="complete">
         <button
           type="submit"
-          className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white mt-6"
+          className="p-2 rounded-md transition ease-in-out duration-150 bg-indigo-500 hover:bg-indigo-400 text-white"
         >
           Complete task
         </button>

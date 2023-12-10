@@ -1,10 +1,14 @@
-import { editTask, fetchTask } from '../../http';
+import { format, formatRFC3339 } from 'date-fns';
+import { editTaskHistory, fetchTask } from '../../http';
 import { Form, Link, redirect, useLoaderData } from 'react-router-dom';
 
 export async function loader({ params }) {
   try {
     const task = await fetchTask(params.taskId);
-    return { task };
+    return {
+      task,
+      history: task.history.find((h) => h.id === params.taskHistoryId),
+    };
   } catch {
     return redirect('/');
   }
@@ -12,17 +16,24 @@ export async function loader({ params }) {
 
 export async function action({ params, request }) {
   const formData = await request.formData();
-  const { name } = Object.fromEntries(formData);
-  await editTask(params.taskId, name);
+  const { completedAt } = Object.fromEntries(formData);
+  const formatted = formatRFC3339(new Date(completedAt));
+
+  await editTaskHistory(params.taskId, params.taskHistoryId, formatted);
   return redirect(`/task/${params.taskId}`);
 }
 
-export const EditTask = () => {
-  const { task } = useLoaderData();
+export const EditTaskHistory = () => {
+  const { task, history } = useLoaderData();
 
-  if (!task) {
+  if (!task || !history) {
     return redirect('/tasks');
   }
+
+  const currentValue = format(
+    new Date(history.completed_at),
+    "yyyy-MM-dd'T'HH:mm",
+  );
 
   return (
     <div>
@@ -31,13 +42,15 @@ export const EditTask = () => {
           <Link to={`/task/${task.id}`} className="mr-4 hover:text-gray-200">
             &larr;
           </Link>
-          Edit {task.name}
+          Edit entry
         </div>
         <Form
           method="post"
           action="destroy"
           onSubmit={(event) => {
-            if (!confirm(`Are you sure you want to delete '${task.name}'?`)) {
+            if (
+              !confirm('Are you sure you want to delete this history entry?')
+            ) {
               event.preventDefault();
             }
           }}
@@ -46,17 +59,18 @@ export const EditTask = () => {
             type="submit"
             className="p-2 rounded-md transition ease-in-out duration-150 bg-red-800 hover:bg-red-700 text-white"
           >
-            Delete task
+            Delete entry
           </button>
         </Form>
       </div>
       <Form method="post">
         <input
-          placeholder="Task name"
-          aria-label="Task name"
-          defaultValue={task.name}
-          type="text"
-          name="name"
+          placeholder="Completed at"
+          aria-label="Completed at"
+          defaultValue={currentValue}
+          type="datetime-local"
+          min="0"
+          name="completedAt"
           required
           className="p-2 rounded-md"
         />

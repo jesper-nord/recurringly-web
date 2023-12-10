@@ -21,6 +21,11 @@ import {
 import { action as completeAction } from './routes/CompleteTask';
 import { action as deleteTaskAction } from './routes/DeleteTask';
 import { action as deleteHistoryAction } from './routes/DeleteTaskHistory';
+import {
+  EditTaskHistory,
+  loader as editHistoryLoader,
+  action as editHistoryAction,
+} from './routes/EditTaskHistory';
 
 const router = createBrowserRouter([
   {
@@ -63,10 +68,6 @@ const router = createBrowserRouter([
                 path: '/task/:taskId/complete',
                 action: completeAction,
               },
-              {
-                path: '/task/:taskId/history/:taskHistoryId/destroy',
-                action: deleteHistoryAction,
-              },
             ],
           },
           {
@@ -78,6 +79,18 @@ const router = createBrowserRouter([
               {
                 path: '/task/:taskId/edit/destroy',
                 action: deleteTaskAction,
+              },
+            ],
+          },
+          {
+            path: '/task/:taskId/history/:taskHistoryId/edit',
+            element: <EditTaskHistory />,
+            loader: editHistoryLoader,
+            action: editHistoryAction,
+            children: [
+              {
+                path: '/task/:taskId/history/:taskHistoryId/edit/destroy',
+                action: deleteHistoryAction,
               },
             ],
           },
