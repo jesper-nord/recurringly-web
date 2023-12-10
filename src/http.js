@@ -79,8 +79,13 @@ export const createTask = async (name) => {
   return response.data;
 };
 
+export const editTask = async (id, name) => {
+  const response = await client.put(`/auth/tasks/${id}`, { name });
+  return response.data;
+};
+
 export const completeTask = async (id) => {
-  const response = await client.put(`/auth/tasks/${id}`);
+  const response = await client.post(`/auth/tasks/${id}/complete`);
   return response.data;
 };
 

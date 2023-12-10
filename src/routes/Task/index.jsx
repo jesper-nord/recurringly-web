@@ -1,5 +1,5 @@
 import { fetchTask } from '../../http';
-import { Form, redirect, useLoaderData } from 'react-router-dom';
+import { Form, Link, redirect, useLoaderData } from 'react-router-dom';
 
 export async function loader({ params }) {
   try {
@@ -21,24 +21,19 @@ export const Task = () => {
     <div>
       <div className="flex justify-between mb-6">
         <div className="text-xl font-medium text-black dark:text-white">
+          <Link to="/tasks" className="mr-4 hover:text-gray-200">
+            &larr;
+          </Link>
           {task.name}: history
         </div>
-        <Form
-          method="post"
-          action="destroy"
-          onSubmit={(event) => {
-            if (!confirm(`Are you sure you want to delete '${task.name}'?`)) {
-              event.preventDefault();
-            }
-          }}
-        >
+        <Link to={`/task/${task.id}/edit`}>
           <button
             type="submit"
             className="p-2 rounded-md transition ease-in-out duration-150 bg-gray-600 hover:bg-gray-500 text-gray-200"
           >
-            Delete task
+            Edit task
           </button>
-        </Form>
+        </Link>
       </div>
       {task.history.length > 0 ? (
         <ol>
