@@ -19,7 +19,7 @@ export const Tasks = () => {
   return (
     <div className="">
       <div className="text-xl font-medium text-black dark:text-white mb-6">
-        Your recurring tasks
+        Your tasks
       </div>
       {tasks.map((task) => (
         <Link

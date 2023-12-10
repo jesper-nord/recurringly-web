@@ -27,7 +27,7 @@ export const Task = () => {
           >
             &larr;
           </Link>
-          {task.name}: history
+          History: {task.name}
         </div>
         <Link to={`/task/${task.id}/edit`}>
           <button
@@ -42,7 +42,7 @@ export const Task = () => {
         <ol>
           {task.history.map((h) => (
             <li
-              className="p-4 mx-auto mb-4 bg-white dark:bg-gray-200 rounded-md shadow-md flex flex-row items-center"
+              className="py-2 px-4 mx-auto mb-4 bg-white dark:bg-gray-200 rounded-md shadow-md flex flex-row items-center"
               key={h.id}
             >
               <div className="flex flex-1 flex-col">
