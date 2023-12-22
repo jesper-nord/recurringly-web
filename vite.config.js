@@ -12,7 +12,8 @@ export default defineConfig({
     port: 3001,
     open: true,
     proxy: {
-      '/api': {
+      '/recurringly/api': {
+        rewrite: (path) => path.replace(/^\/recurringly/, ''),
         target: 'http://localhost:8090',
         changeOrigin: true,
       },
