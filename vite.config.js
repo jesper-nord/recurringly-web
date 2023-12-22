@@ -6,6 +6,7 @@ export default defineConfig({
     outDir: 'build',
     sourcemap: true,
   },
+  base: '/recurringly/',
   plugins: [react()],
   server: {
     port: 3001,
