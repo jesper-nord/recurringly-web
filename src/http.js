@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getAccessToken, getRefreshToken, saveTokens } from './util';
 
 const client = axios.create({
-  baseURL: '/recurringly/api',
+  baseURL: '/api',
 });
 
 client.interceptors.request.use(

@@ -6,14 +6,12 @@ export default defineConfig({
     outDir: 'build',
     sourcemap: true,
   },
-  base: '/recurringly/',
   plugins: [react()],
   server: {
     port: 3001,
     open: true,
     proxy: {
-      '/recurringly/api': {
-        rewrite: (path) => path.replace(/^\/recurringly/, ''),
+      '/api': {
         target: 'http://localhost:8090',
         changeOrigin: true,
       },
