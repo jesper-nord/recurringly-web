@@ -9,14 +9,14 @@ import { saveTokens } from '../../util';
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const { email, password, repeatpassword } = Object.fromEntries(formData);
+  const { username, password, repeatpassword } = Object.fromEntries(formData);
 
   if (password !== repeatpassword) {
     throw new Response('Passwords does not match', { status: 400 });
   }
 
   try {
-    const { tokens } = await register(email, password);
+    const { tokens } = await register(username, password);
     saveTokens(tokens);
   } catch (e) {
     throw new Response('', { status: e.response.status });
@@ -30,10 +30,10 @@ export const Register = () => {
     <div className="flex flex-col h-full place-content-center">
       <Form method="post" className="flex flex-col">
         <input
-          placeholder="Email"
-          aria-label="Email"
-          type="email"
-          name="email"
+          placeholder="Username"
+          aria-label="Username"
+          type="text"
+          name="username"
           required
           className="p-2 rounded-md mb-2"
         />

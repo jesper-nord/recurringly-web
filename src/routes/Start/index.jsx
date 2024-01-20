@@ -25,10 +25,10 @@ export async function loader() {
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const { email, password } = Object.fromEntries(formData);
+  const { username, password } = Object.fromEntries(formData);
 
   try {
-    const { tokens } = await login(email, password);
+    const { tokens } = await login(username, password);
     saveTokens(tokens);
   } catch (e) {
     throw new Response('invalid login', { status: e.response.status });
@@ -42,10 +42,10 @@ export const Start = () => {
     <div className="flex flex-col h-full place-content-center">
       <Form method="post" className="flex flex-col">
         <input
-          placeholder="Email"
-          aria-label="Email"
-          type="email"
-          name="email"
+          placeholder="Username"
+          aria-label="Username"
+          type="text"
+          name="username"
           className="p-2 rounded-md mb-2"
         />
         <input

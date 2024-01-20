@@ -49,13 +49,13 @@ client.interceptors.response.use(
   },
 );
 
-export const login = async (email, password) => {
-  const response = await client.post('/login', { email, password });
+export const login = async (username, password) => {
+  const response = await client.post('/login', { username, password });
   return response.data;
 };
 
-export const register = async (email, password) => {
-  const response = await client.post('/register', { email, password });
+export const register = async (username, password) => {
+  const response = await client.post('/register', { username, password });
   return response.data;
 };
 
